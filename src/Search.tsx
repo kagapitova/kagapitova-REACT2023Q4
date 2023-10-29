@@ -31,6 +31,14 @@ class Search extends Component<SearchProps, SearchState> {
     this.props.onSearch(trimmedSearchTerm);
   };
 
+  throwErrorAndLog = () => {
+    try {
+      throw new Error("This is an example error message.");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   render() {
     return (
       <div className={styles.container}>
@@ -42,6 +50,7 @@ class Search extends Component<SearchProps, SearchState> {
           onChange={(e) => this.setState({ searchTerm: e.target.value })}
         />
         <button onClick={this.handleSearch}>Search</button>
+        <button onClick={this.throwErrorAndLog}>Error</button>
       </div>
     );
   }
