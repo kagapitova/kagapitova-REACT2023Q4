@@ -1,6 +1,6 @@
 import { Component } from "react";
 import Search from "./Search";
-import Results from "./Result";
+import Results from "./Results";
 import { Result } from "./Types";
 import "./App.module.css";
 
@@ -8,6 +8,10 @@ interface AppState {
   searchTerm: string;
   results: Result[];
 }
+
+type ApiData = {
+  results: Result[];
+};
 
 class App extends Component<{}, AppState> {
   constructor(props: {}) {
@@ -21,8 +25,8 @@ class App extends Component<{}, AppState> {
   handleSearch = (searchTerm: string) => {
     if (searchTerm) {
       fetch(`https://swapi.dev/api/people/?search=${searchTerm}`)
-        .then((response) => response.json())
-        .then((data: { results: Result[] }) => {
+        .then((response) => response.json() as Promise<ApiData>)
+        .then((data: ApiData) => {
           this.setState({ results: data.results });
         })
         .catch((error) => {
@@ -30,8 +34,8 @@ class App extends Component<{}, AppState> {
         });
     } else {
       fetch(`https://swapi.dev/api/people/`)
-        .then((response) => response.json())
-        .then((data: { results: Result[] }) => {
+        .then((response) => response.json() as Promise<ApiData>)
+        .then((data: ApiData) => {
           this.setState({ results: data.results });
         })
         .catch((error) => {
