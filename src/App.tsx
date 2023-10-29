@@ -2,7 +2,6 @@ import { Component } from "react";
 import Search from "./Search";
 import Results from "./Results";
 import { Result } from "./Types";
-import "./App.module.css";
 
 interface AppState {
   searchTerm: string;
@@ -23,25 +22,17 @@ class App extends Component<object, AppState> {
   }
 
   handleSearch = (searchTerm: string) => {
-    if (searchTerm) {
-      fetch(`https://swapi.dev/api/people/?search=${searchTerm}`)
-        .then((response) => response.json() as Promise<ApiData>)
-        .then((data: ApiData) => {
-          this.setState({ results: data.results });
-        })
-        .catch((error) => {
-          console.error("API Error:", error);
-        });
-    } else {
-      fetch(`https://swapi.dev/api/people/`)
-        .then((response) => response.json() as Promise<ApiData>)
-        .then((data: ApiData) => {
-          this.setState({ results: data.results });
-        })
-        .catch((error) => {
-          console.error("API Error:", error);
-        });
-    }
+    const uri = searchTerm
+      ? `https://swapi.dev/api/people/?search=${searchTerm}`
+      : `https://swapi.dev/api/people/`;
+    return fetch(uri)
+      .then((response) => response.json() as Promise<ApiData>)
+      .then((data: ApiData) => {
+        this.setState({ results: data.results });
+      })
+      .catch((error) => {
+        console.error("API Error:", error);
+      });
   };
 
   render() {

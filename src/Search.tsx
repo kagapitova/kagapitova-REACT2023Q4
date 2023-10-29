@@ -2,11 +2,12 @@ import { Component } from "react";
 import styles from "./Search.module.css";
 
 interface SearchProps {
-  onSearch: (searchTerm: string) => void;
+  onSearch: (searchTerm: string) => Promise<void>;
 }
 
 interface SearchState {
   searchTerm: string;
+  loading: boolean;
 }
 
 class Search extends Component<SearchProps, SearchState> {
@@ -14,6 +15,7 @@ class Search extends Component<SearchProps, SearchState> {
     super(props);
     this.state = {
       searchTerm: "",
+      loading: true,
     };
   }
 
@@ -21,14 +23,19 @@ class Search extends Component<SearchProps, SearchState> {
     const savedSearchTerm = localStorage.getItem("searchTerm");
     if (savedSearchTerm) {
       this.setState({ searchTerm: savedSearchTerm });
-      this.props.onSearch(savedSearchTerm);
+      this.props
+        .onSearch(savedSearchTerm)
+        .finally(() => this.setState({ loading: false }));
     }
   }
 
   handleSearch = () => {
     const trimmedSearchTerm = this.state.searchTerm.trim();
+    this.setState({ loading: true });
     localStorage.setItem("searchTerm", trimmedSearchTerm);
-    this.props.onSearch(trimmedSearchTerm);
+    this.props
+      .onSearch(trimmedSearchTerm)
+      .finally(() => this.setState({ loading: false }));
   };
 
   throwErrorAndLog = () => {
@@ -51,6 +58,9 @@ class Search extends Component<SearchProps, SearchState> {
         />
         <button onClick={this.handleSearch}>Search</button>
         <button onClick={this.throwErrorAndLog}>Error</button>
+        <div
+          className={this.state.loading ? styles.showLoader : styles.loader}
+        />
       </div>
     );
   }
