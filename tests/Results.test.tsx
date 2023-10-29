@@ -1,12 +1,12 @@
-import { render } from '@testing-library/react';
-import Results from './../src/Results';
-import '@testing-library/jest-dom'
-import { Result } from '../src/Types';
+import { render } from "@testing-library/react";
+import Results from "./../src/Results";
+import "@testing-library/jest-dom";
+import { Result } from "../src/Types";
 
-test('Results component renders correctly with data', () => {
+test("Results component renders correctly with data", () => {
   const data: Result[] = [
-    { name: 'Luke Skywalker', description: 'Jedi Knight' },
-    { name: 'Darth Vader', description: 'Sith Lord' },
+    { name: "Luke Skywalker", description: "Jedi Knight" },
+    { name: "Darth Vader", description: "Sith Lord" },
   ];
 
   const { getByText } = render(<Results results={data} />);
@@ -19,8 +19,8 @@ test('Results component renders correctly with data', () => {
   }
 });
 
-test('Results component renders correctly with empty data', () => {
+test("Results component renders correctly with empty data", () => {
   const { queryByText } = render(<Results results={[]} />);
-  expect(queryByText('Luke Skywalker')).toBeNull();
-  expect(queryByText('Darth Vader')).toBeNull();
+  expect(queryByText("Luke Skywalker")).toBeNull();
+  expect(queryByText("Darth Vader")).toBeNull();
 });

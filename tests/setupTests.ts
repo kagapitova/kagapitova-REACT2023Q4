@@ -1,4 +1,3 @@
-import {vi} from 'vitest';
+import { vi } from "vitest";
 
-// @ts-ignore
 global.jest = vi;

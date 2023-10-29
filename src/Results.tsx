@@ -14,9 +14,7 @@ class Results extends Component<ResultsProps> {
         {results.map((item, index) => (
           <div key={index} className={styles.item}>
             <h2>{item.name}</h2>
-            <p>
-              {item.description}
-            </p>
+            <p>{item.description}</p>
             <p>
               {item.gender} {item.hair_color} {item.birth_year} {item.height}{" "}
             </p>
