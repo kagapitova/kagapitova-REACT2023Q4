@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Result } from "./Types";
-import "./Result.module.css";
+import styles from "./Result.module.css";
 
 interface ResultsProps {
   results: Result[];
@@ -12,7 +12,7 @@ class Results extends Component<ResultsProps> {
     return (
       <div>
         {results.map((item, index) => (
-          <div key={index} className="item">
+          <div key={index} className={styles.item}>
             <h2>{item.name}</h2>
             <p>
               {item.description}

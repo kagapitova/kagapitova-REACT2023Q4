@@ -18,6 +18,4 @@ test('App component handles search', () => {
   fireEvent.change(inputElement, { target: { value: 'Luke' } });
   fireEvent.click(buttonElement);
 
-  // You may assert the expected behavior here, such as checking for API calls and results.
-  // Mocking the API calls and handling asynchronous code is typically done with tools like jest.mock and async/await.
 });

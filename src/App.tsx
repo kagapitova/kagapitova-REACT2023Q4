@@ -48,6 +48,7 @@ class App extends Component<{}, AppState> {
     return (
       <div>
         <h1>Star Wars Search</h1>
+        <h4>Here you can find a character by name.</h4>
         <Search onSearch={this.handleSearch} />
         <Results results={this.state.results} />
       </div>
