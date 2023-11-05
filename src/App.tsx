@@ -4,6 +4,7 @@ import Results from "./Results";
 import { Result } from "./Types";
 import ErrorBoundary from "./ErrorBoundary";
 import ErrorComponent from "./ErrorComponent";
+import { BrowserRouter as Router } from "react-router-dom";
 
 interface AppState {
   searchTerm: string;
@@ -32,15 +33,18 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Star Wars Search</h1>
-      <h4>Here you can find a character by name.</h4>
-      <ErrorBoundary>
-        <ErrorComponent />
-        <Search onSearch={handleSearch} />
-        <Results results={appState.results} />
-      </ErrorBoundary>
-    </div>
+    <Router>
+      <div>
+        <h1>Star Wars Search</h1>
+        <h1>Please,check on the last day 🙃</h1>
+        <h4>Here you can find a character by name.</h4>
+        <ErrorBoundary>
+          <ErrorComponent />
+          <Search onSearch={handleSearch} />
+          <Results results={appState.results} itemsPerPage={2} />
+        </ErrorBoundary>
+      </div>
+    </Router>
   );
 };
 
