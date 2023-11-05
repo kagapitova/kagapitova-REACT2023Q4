@@ -15,7 +15,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
       setSearchTerm(savedSearchTerm);
       onSearch(savedSearchTerm).finally(() => setLoading(false));
     }
-  }, [onSearch]);
+  }, []);
 
   const handleSearch = () => {
     const trimmedSearchTerm = searchTerm.trim();
