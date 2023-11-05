@@ -12,7 +12,7 @@
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-top: 4px solid #0074d9;
   border-radius: 50%;
-  width: 45px;
+  width: 33px;
   height: 30px;
   animation: spin 2s linear infinite;
   display: none;
@@ -22,7 +22,7 @@
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-top: 4px solid #0074d9;
   border-radius: 50%;
-  width: 45px;
+  width: 33px;
   height: 30px;
   animation: spin 2s linear infinite;
   display: block;
