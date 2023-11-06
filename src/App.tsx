@@ -36,7 +36,6 @@ const App: React.FC = () => {
     <Router>
       <div>
         <h1>Star Wars Search</h1>
-        <h1>Please,check on the last day 🙃</h1>
         <h4>Here you can find a character by name.</h4>
         <ErrorBoundary>
           <ErrorComponent />

@@ -1,6 +1,6 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import { Result } from "./Types";
 import styles from "./Result.module.css";
 
@@ -27,7 +27,12 @@ const Results: React.FC<ResultsProps> = ({ results, itemsPerPage = 5 }) => {
     <div>
       {results.slice(startIndex, endIndex).map((item, index) => (
         <div key={index} className={styles.item}>
-          <h2>{item.name}</h2>
+          <Link
+            to={`?page=${currentPage}&details=${index}`}
+            className={styles.link}
+          >
+            <h2>{item.name}</h2>
+          </Link>
           <p>{item.description}</p>
           <p>
             {item.gender} {item.hair_color} {item.birth_year} {item.height}
@@ -49,6 +54,10 @@ const Results: React.FC<ResultsProps> = ({ results, itemsPerPage = 5 }) => {
         >
           Next
         </button>
+      </div>
+
+      <div className={styles.detailsContainer}>
+        <Outlet />
       </div>
     </div>
   );
