@@ -40,7 +40,7 @@ const App: React.FC = () => {
         <ErrorBoundary>
           <ErrorComponent />
           <Search onSearch={handleSearch} />
-          <Results results={appState.results} itemsPerPage={2} />
+          <Results results={appState.results} />
         </ErrorBoundary>
       </div>
     </Router>
