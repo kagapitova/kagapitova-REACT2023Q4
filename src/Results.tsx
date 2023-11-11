@@ -1,15 +1,13 @@
 import React, { ChangeEvent, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Result } from "./Types";
 import styles from "./Result.module.css";
 import Details from "./Details";
+import { useAppContext } from "./AppProvider";
 
-interface ResultsProps {
-  results: Result[];
-}
-
-const Results: React.FC<ResultsProps> = ({ results }) => {
+const Results: React.FC = () => {
+  const { results } = useAppContext();
+  console.log(results);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -53,6 +51,7 @@ const Results: React.FC<ResultsProps> = ({ results }) => {
           }
         }}
       >
+        {results.length === 0 && <div>No results</div>}
         {results.slice(startIndex, endIndex).map((item, index) => (
           <div key={index} className={styles.item}>
             <Link

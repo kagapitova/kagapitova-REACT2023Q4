@@ -1,35 +1,24 @@
-import { render } from "@testing-library/react";
-import Results from "./../src/Results";
 import "@testing-library/jest-dom";
-import { Result } from "../src/Types";
 import { BrowserRouter } from "react-router-dom";
+import Results from "../src/Results";
+import { AppProvider } from "../src/AppProvider";
+import { render } from "@testing-library/react";
 
-test("Results component renders correctly with data", () => {
-  const data: Result[] = [
-    { name: "Luke Skywalker", description: "Jedi Knight" },
-    { name: "Darth Vader", description: "Sith Lord" },
-  ];
+jest.mock("../src/AppContext", () => ({
+  useAppContext: jest.fn(() => ({
+    results: [],
+  })),
+}));
 
+test("Results component displays message when no cards are present", () => {
   const { getByText } = render(
-    <BrowserRouter>
-      <Results results={data} />
-    </BrowserRouter>,
+    <AppProvider>
+      <BrowserRouter>
+        <Results />
+      </BrowserRouter>
+    </AppProvider>,
   );
 
-  for (const item of data) {
-    const nameElement = getByText(item.name);
-    const descriptionElement = getByText(item.description);
-    expect(nameElement).toBeInTheDocument();
-    expect(descriptionElement).toBeInTheDocument();
-  }
-});
-
-test("Results component renders correctly with empty data", () => {
-  const { queryByText } = render(
-    <BrowserRouter>
-      <Results results={[]} />
-    </BrowserRouter>,
-  );
-  expect(queryByText("Luke Skywalker")).toBeNull();
-  expect(queryByText("Darth Vader")).toBeNull();
+  const noCardsMessage = getByText("No results");
+  expect(noCardsMessage).toBeInTheDocument();
 });

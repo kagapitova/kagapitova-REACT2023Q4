@@ -1,25 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import Search from "./Search";
 import Results from "./Results";
 import { Result } from "./Types";
 import ErrorBoundary from "./ErrorBoundary";
 import ErrorComponent from "./ErrorComponent";
 import { BrowserRouter as Router } from "react-router-dom";
-
-interface AppState {
-  searchTerm: string;
-  results: Result[];
-}
+import { useAppContext } from "./AppProvider";
 
 type ApiData = {
   results: Result[];
 };
 
 const App: React.FC = () => {
-  const [appState, setAppState] = useState<AppState>({
-    searchTerm: "",
-    results: [],
-  });
+  const { updateResults, updateSearchTerm } = useAppContext();
 
   const handleSearch = (searchTerm: string) => {
     const uri = searchTerm
@@ -28,7 +21,8 @@ const App: React.FC = () => {
     return fetch(uri)
       .then((response) => response.json() as Promise<ApiData>)
       .then((data: ApiData) => {
-        setAppState({ searchTerm, results: data.results });
+        updateResults(data.results);
+        updateSearchTerm(searchTerm);
       });
   };
 
@@ -40,7 +34,7 @@ const App: React.FC = () => {
         <ErrorBoundary>
           <ErrorComponent />
           <Search onSearch={handleSearch} />
-          <Results results={appState.results} />
+          <Results />
         </ErrorBoundary>
       </div>
     </Router>

@@ -1,9 +1,14 @@
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import App from "../src/App";
+import { AppProvider } from "../src/AppProvider";
 
 test("App component renders correctly", () => {
-  const { getByText, getByPlaceholderText } = render(<App />);
+  const { getByText, getByPlaceholderText } = render(
+    <AppProvider>
+      <App />
+    </AppProvider>,
+  );
   const headingElement = getByText("Star Wars Search");
   const inputElement = getByPlaceholderText("Search...");
   expect(headingElement).toBeInTheDocument();
@@ -11,7 +16,11 @@ test("App component renders correctly", () => {
 });
 
 test("App component handles search", () => {
-  const { getByPlaceholderText, getByText } = render(<App />);
+  const { getByPlaceholderText, getByText } = render(
+    <AppProvider>
+      <App />
+    </AppProvider>,
+  );
   const inputElement = getByPlaceholderText("Search...");
   const buttonElement = getByText("Search");
 
