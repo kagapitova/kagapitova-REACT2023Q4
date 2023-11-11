@@ -14,7 +14,16 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
     const savedSearchTerm = localStorage.getItem("searchTerm");
     if (savedSearchTerm) {
       updateSearchTerm(savedSearchTerm);
-      onSearch(savedSearchTerm).finally(() => setLoading(false));
+      setLoading(true);
+      try {
+        Promise.resolve(onSearch(savedSearchTerm))
+          .then(() => console.log("Search completed successfully"))
+          .catch((error) => console.error("Error during onSearch:", error))
+          .finally(() => setLoading(false));
+      } catch (error) {
+        console.error("Error during onSearch:", error);
+        setLoading(false);
+      }
     }
   }, []);
 
@@ -22,7 +31,15 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
     const trimmedSearchTerm = contextSearchTerm.trim();
     setLoading(true);
     localStorage.setItem("searchTerm", trimmedSearchTerm);
-    onSearch(trimmedSearchTerm).finally(() => setLoading(false));
+    try {
+      Promise.resolve(onSearch(trimmedSearchTerm))
+        .then(() => console.log("Search completed successfully"))
+        .catch((error) => console.error("Error during onSearch:", error))
+        .finally(() => setLoading(false));
+    } catch (error) {
+      console.error("Error during onSearch:", error);
+      setLoading(false);
+    }
   };
 
   return (
